@@ -2,75 +2,86 @@ package com.sur_tec.helmetiq
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.BasicText
-import androidx.compose.material.*
 import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Switch
 import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.sur_tec.helmetiq.navigation.Screens
 
 @Composable
-fun Mainscreen(navController: NavHostController, modifier: Modifier = Modifier) {
 
+fun Mainscreen(navController: NavHostController , modifier: Modifier = Modifier) {
+
+    var switchState by rememberSaveable {
+        mutableStateOf(false)
+    }
     Column(
         modifier = modifier
-            .fillMaxSize()
-            .padding(16.dp),
-        verticalArrangement = Arrangement.SpaceBetween,
+            .fillMaxSize(),
+        verticalArrangement = Arrangement.spacedBy(8.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
 
-        Text(
-            text = "HelmetIQ",
-            fontSize = 24.sp,
-            color = Color.Gray,
-            modifier = Modifier.padding(0.dp,50.dp)
-        )
+        HeaderTitle()
 
         Column(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             // Helmet Image
-            // Image(
-            //painter = painterResource(id = R.drawable.helmet_image), // Replace with your image resource
-            //contentDescription = "Helmet",
-            //modifier = Modifier.size(120.dp),
-            // contentScale = ContentScale.Fit
-            //)
+            HelmetImage()
             Spacer(modifier = Modifier.height(3.dp))
             // Battery and Bluetooth Icons
             Row(
-                horizontalArrangement = Arrangement.spacedBy(16.dp)
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                modifier = Modifier.padding(top = 4.dp)
             ) {
-                // Icon(painter = painterResource(id = R.drawable.ic_battery), contentDescription = "Battery", tint = Color.Gray)
-                //Icon(painter = painterResource(id = R.drawable.ic_bluetooth), contentDescription = "Bluetooth", tint = Color.Gray)
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_battery),
+                    contentDescription = "Battery",
+                    tint = Color.Gray,
+                    modifier = Modifier.size(32.dp)
+                )
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_bluetooth),
+                    contentDescription = "Bluetooth",
+                    tint = Color.Gray,
+                    modifier = Modifier.size(32.dp)
+                )
             }
             Spacer(modifier = Modifier.height(8.dp))
             // Headlights Toggle
-            Row(
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Text(text = "Headlights", fontSize = 18.sp, color = Color.Gray)
-                Spacer(modifier = Modifier.width(8.dp))
-                Switch(
-                    checked = false, // Replace with actual state
-                    onCheckedChange = { /* TODO: Add logic here */ },
-                    colors = SwitchDefaults.colors(checkedThumbColor = Color.Gray)
-                )
+            HeadLight(switchState) {
+                switchState = it
             }
         }
 
@@ -88,19 +99,34 @@ fun Mainscreen(navController: NavHostController, modifier: Modifier = Modifier) 
         Column(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(
-                text = "Total Distance Traveled: 10 Miles",
-                fontSize = 18.sp,
-                color = Color.Gray
-            )
-            Spacer(modifier = Modifier.height(4.dp))
-            Text(
-                text = "Ride Time: 58 Minutes",
-                fontSize = 18.sp,
-                color = Color.Gray
-            )
+            Row(modifier = Modifier.fillMaxWidth()
+                .padding(top = 8.dp)
+                .background(Color.LightGray),
+                horizontalArrangement = Arrangement.Center) {
+                Text(
+                    text = "Total Distance Traveled: 10 Miles",
+                    fontSize = 18.sp,
+                    color = Color.Gray,
+                    fontWeight = FontWeight.W500,
+                    modifier = Modifier.padding(16.dp)
+                )
+            }
+
+            Spacer(modifier = Modifier.height(8.dp))
+            Row(modifier = Modifier.fillMaxWidth()
+                .background(Color.LightGray),
+                horizontalArrangement = Arrangement.Center) {
+                Text(
+                    text = "Ride Time: 58 Minutes",
+                    fontSize = 18.sp,
+                    color = Color.Gray,
+                    fontWeight = FontWeight.W500,
+                    modifier = Modifier.padding(16.dp)
+                )
+            }
+
         }
-        Row(
+      /*  Row(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(8.dp),
@@ -109,20 +135,74 @@ fun Mainscreen(navController: NavHostController, modifier: Modifier = Modifier) 
             Button(
 
                 onClick = { navController.navigate(Screens.MAINSCREEN.name) },
-                modifier = Modifier.padding(0.dp,6.dp)
+                modifier = Modifier.padding(0.dp, 6.dp)
 
             ) {
                 Text("Home")
             }
             Button(
-                onClick = { navController.navigate(Screens.CONTACTSSCREEN.name)},
-                modifier = Modifier.padding(0.dp,6.dp)
+                onClick = { navController.navigate(Screens.CONTACTSSCREEN.name) },
+                modifier = Modifier.padding(0.dp, 6.dp)
 
 
             ) {
                 Text("SOS Contacts")
             }
 
-        }
+        }*/
+    }
+}
+
+@Composable
+
+private fun HeadLight(switchState: Boolean = false, onSwitchChanged: (Boolean) -> Unit) {
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(Color.LightGray),
+        horizontalArrangement = Arrangement.SpaceAround
+    ) {
+        Text(
+            text = "Headlights", fontSize = 20.sp, color = Color.Gray,
+            fontWeight = FontWeight.Medium
+        )
+        Spacer(modifier = Modifier.width(8.dp))
+        Switch(
+            checked = switchState, // Replace with actual state
+            onCheckedChange = {
+                onSwitchChanged(it)
+            },
+            colors = SwitchDefaults.colors(checkedThumbColor = Color.Gray)
+        )
+    }
+}
+
+@Composable
+private fun HelmetImage() {
+    Image(
+        painter = painterResource(id = R.drawable.helmet_image), // Replace with your image resource
+        contentDescription = "Helmet",
+        modifier = Modifier.size(140.dp),
+        contentScale = ContentScale.Fit
+    )
+}
+
+@Composable
+@Preview(showBackground = true)
+private fun HeaderTitle() {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(Color.LightGray),
+        horizontalArrangement = Arrangement.Center
+    ) {
+        Text(
+            text = "HelmetIQ",
+            fontSize = 24.sp,
+            color = Color.Gray,
+            modifier = Modifier.padding(vertical = 10.dp)
+
+        )
     }
 }
