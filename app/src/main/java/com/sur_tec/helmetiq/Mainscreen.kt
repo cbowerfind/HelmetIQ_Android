@@ -31,6 +31,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -186,17 +187,17 @@ private fun HelmetImage() {
 private fun HeaderTitle() {
     Row(
         modifier = Modifier
-            .fillMaxWidth()
-            .background(MaterialTheme.colorScheme.secondaryContainer),
-        horizontalArrangement = Arrangement.Center
+            .fillMaxWidth(),
+        horizontalArrangement = Arrangement.Start
     ) {
         Text(
             text = "HelmetIQ",
-            fontSize = 24.sp,
+            fontSize = 28.sp,
             color = MaterialTheme.colorScheme.onSecondaryContainer,
             fontFamily = Monnestraut,
-            fontWeight = FontWeight.Medium,
-            modifier = Modifier.padding(vertical = 10.dp)
+            fontWeight = FontWeight.ExtraBold,
+            fontStyle = FontStyle.Italic,
+            modifier = Modifier.padding(vertical = 10.dp, horizontal = 12.dp)
 
         )
     }

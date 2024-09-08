@@ -20,6 +20,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -55,14 +56,16 @@ fun Header() {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .background(MaterialTheme.colorScheme.secondaryContainer),
-        horizontalArrangement = Arrangement.Center
+
     ) {
         Text(
             text = "Emergency Contacts",
-            fontSize = 24.sp,
-            color = Color.Gray,
-            modifier = Modifier.padding(0.dp, 10.dp)
+            fontSize = 28.sp,
+            fontFamily = Monnestraut,
+            color = MaterialTheme.colorScheme.onSecondaryContainer,
+            fontWeight = FontWeight.ExtraBold,
+            fontStyle = FontStyle.Italic,
+            modifier = Modifier.padding(vertical = 10.dp, horizontal = 12.dp)
         )
     }
 }
