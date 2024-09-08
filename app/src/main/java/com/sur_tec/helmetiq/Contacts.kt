@@ -1,29 +1,39 @@
 package com.sur_tec.helmetiq
 
+import android.graphics.drawable.shapes.Shape
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.shape.CornerBasedShape
+import androidx.compose.foundation.shape.CornerSize
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Button
+import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Switch
 import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.sur_tec.helmetiq.navigation.Screens
+import com.sur_tec.helmetiq.ui.theme.Monnestraut
 
 @Composable
 fun Contacts(navController: NavHostController, modifier: Modifier = Modifier) {
     Column(
         modifier = modifier
-            .fillMaxSize()
-            .padding(16.dp),
-        verticalArrangement = Arrangement.SpaceBetween,
+            .fillMaxSize(),
+        verticalArrangement = Arrangement.spacedBy(8.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         // Header
@@ -36,21 +46,29 @@ fun Contacts(navController: NavHostController, modifier: Modifier = Modifier) {
         ContactList()
 
         // Bottom Navigation
-      //  BottomNavigation(navController)
+        //  BottomNavigation(navController)
     }
 }
 
 @Composable
 fun Header() {
-    Text(
-        text = "Emergency Contacts",
-        fontSize = 24.sp,
-        color = Color.Gray,
-        modifier = Modifier.padding(0.dp, 50.dp)
-    )
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(MaterialTheme.colorScheme.secondaryContainer),
+        horizontalArrangement = Arrangement.Center
+    ) {
+        Text(
+            text = "Emergency Contacts",
+            fontSize = 24.sp,
+            color = Color.Gray,
+            modifier = Modifier.padding(0.dp, 10.dp)
+        )
+    }
 }
 
 @Composable
+@Preview(showBackground = true)
 fun NewContactAndSmsToggle() {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -61,40 +79,62 @@ fun NewContactAndSmsToggle() {
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
                 .fillMaxWidth()
+                .background(MaterialTheme.colorScheme.surfaceVariant)
                 .padding(vertical = 8.dp)
         ) {
             Text(
                 text = "New Emergency Contact",
                 fontSize = 18.sp,
                 color = Color.Gray,
-                modifier = Modifier.weight(1f)
+                fontFamily = Monnestraut,
+                fontWeight = FontWeight.Medium,
+                modifier = Modifier
+                    .weight(1f)
+                    .padding(start = 12.dp)
             )
-            IconButton(onClick = { /* TODO: Add new contact */ }) {
-                // Icon(
-                // painter = painterResource(id = R.drawable.ic_add), // Replace with your add icon resource
-                //  contentDescription = "Add Contact",
-                //  tint = Color.Gray
-                //)
-            }
+            CustomFloatingActionButton(
+                onClick = {},
+                backgroundColor = MaterialTheme.colorScheme.primary,
+                contentColor = MaterialTheme.colorScheme.onPrimary,
+                shape = MaterialTheme.shapes.medium.copy(
+                    all = CornerSize(60)
+                ),
+                icon = {
+                    Icon(
+                        imageVector = Icons.Default.Add,
+                        contentDescription = "Add",
+                        tint = MaterialTheme.colorScheme.onPrimary
+                    )
+                }
+
+            )
         }
 
         // Potential Collision SMS Toggle
         Row(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
+                .padding(top = 8.dp)
                 .fillMaxWidth()
+
+                .background(MaterialTheme.colorScheme.surfaceVariant)
                 .padding(vertical = 8.dp)
         ) {
             Text(
                 text = "Potential Collision SMS",
                 fontSize = 18.sp,
+                fontFamily = Monnestraut,
+                fontWeight = FontWeight.Medium,
                 color = Color.Gray,
-                modifier = Modifier.weight(1f)
+                modifier = Modifier
+                    .weight(1f)
+                    .padding(start = 12.dp)
             )
             Switch(
                 checked = false, // Replace with actual state
                 onCheckedChange = { /* TODO: Toggle SMS feature */ },
-                colors = SwitchDefaults.colors(checkedThumbColor = Color.Gray)
+                colors = SwitchDefaults.colors(checkedThumbColor = Color.Gray),
+                modifier = Modifier.padding(end = 12.dp)
             )
         }
     }
@@ -144,6 +184,27 @@ fun ContactItem(name: String) {
         // contentDescription = "Go to Contact",
         // tint = Color.Gray
         //)
+    }
+}
+
+@Composable
+fun CustomFloatingActionButton(
+    onClick: () -> Unit,
+    backgroundColor: Color = MaterialTheme.colorScheme.primary,
+    contentColor: Color = MaterialTheme.colorScheme.onPrimary,
+    icon: @Composable () -> Unit,
+    shape: CornerBasedShape = MaterialTheme.shapes.small
+) {
+    Box(contentAlignment = Alignment.Center,
+        modifier = Modifier
+            .padding(end = 12.dp)
+            .size(48.dp)
+            .clip(shape)
+            .background(backgroundColor)
+            .clickable {
+                onClick()
+            }) {
+        icon()
     }
 }
 

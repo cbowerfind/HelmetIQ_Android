@@ -15,8 +15,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.BasicText
-import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Switch
 import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
@@ -30,16 +30,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.sur_tec.helmetiq.navigation.Screens
+import com.sur_tec.helmetiq.ui.theme.Monnestraut
 
 @Composable
 
-fun Mainscreen(navController: NavHostController , modifier: Modifier = Modifier) {
+fun Mainscreen(navController: NavHostController, modifier: Modifier = Modifier) {
 
     var switchState by rememberSaveable {
         mutableStateOf(false)
@@ -59,22 +61,22 @@ fun Mainscreen(navController: NavHostController , modifier: Modifier = Modifier)
         ) {
             // Helmet Image
             HelmetImage()
-            Spacer(modifier = Modifier.height(3.dp))
+
             // Battery and Bluetooth Icons
             Row(
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
-                modifier = Modifier.padding(top = 4.dp)
+
             ) {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_battery),
                     contentDescription = "Battery",
-                    tint = Color.Gray,
+                    tint = MaterialTheme.colorScheme.onSurfaceVariant,
                     modifier = Modifier.size(32.dp)
                 )
                 Icon(
                     painter = painterResource(id = R.drawable.ic_bluetooth),
                     contentDescription = "Bluetooth",
-                    tint = Color.Gray,
+                    tint = MaterialTheme.colorScheme.onSurfaceVariant,
                     modifier = Modifier.size(32.dp)
                 )
             }
@@ -90,66 +92,56 @@ fun Mainscreen(navController: NavHostController , modifier: Modifier = Modifier)
             modifier = Modifier
                 .fillMaxWidth()
                 .height(200.dp)
-                .background(Color.LightGray),
+                .background(MaterialTheme.colorScheme.onSurfaceVariant),
             contentAlignment = Alignment.Center
         ) {
-            BasicText(text = "Map View Placeholder")
+            BasicText(
+                text = "Map View Placeholder",
+                style = TextStyle(
+                    color = MaterialTheme.colorScheme.onSurface
+                )
+            )
         }
 
         Column(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Row(modifier = Modifier.fillMaxWidth()
-                .padding(top = 8.dp)
-                .background(Color.LightGray),
-                horizontalArrangement = Arrangement.Center) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 8.dp)
+                    .background(MaterialTheme.colorScheme.surfaceVariant),
+                horizontalArrangement = Arrangement.Center
+            ) {
                 Text(
                     text = "Total Distance Traveled: 10 Miles",
                     fontSize = 18.sp,
-                    color = Color.Gray,
+                    color = MaterialTheme.colorScheme.onSurface,
                     fontWeight = FontWeight.W500,
+                    fontFamily = Monnestraut,
                     modifier = Modifier.padding(16.dp)
                 )
             }
 
             Spacer(modifier = Modifier.height(8.dp))
-            Row(modifier = Modifier.fillMaxWidth()
-                .background(Color.LightGray),
-                horizontalArrangement = Arrangement.Center) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(MaterialTheme.colorScheme.surfaceVariant),
+                horizontalArrangement = Arrangement.Center
+            ) {
                 Text(
                     text = "Ride Time: 58 Minutes",
                     fontSize = 18.sp,
-                    color = Color.Gray,
+                    color = MaterialTheme.colorScheme.onSurface,
                     fontWeight = FontWeight.W500,
+                    fontFamily = Monnestraut,
                     modifier = Modifier.padding(16.dp)
                 )
             }
 
         }
-      /*  Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(8.dp),
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            Button(
 
-                onClick = { navController.navigate(Screens.MAINSCREEN.name) },
-                modifier = Modifier.padding(0.dp, 6.dp)
-
-            ) {
-                Text("Home")
-            }
-            Button(
-                onClick = { navController.navigate(Screens.CONTACTSSCREEN.name) },
-                modifier = Modifier.padding(0.dp, 6.dp)
-
-
-            ) {
-                Text("SOS Contacts")
-            }
-
-        }*/
     }
 }
 
@@ -160,12 +152,13 @@ private fun HeadLight(switchState: Boolean = false, onSwitchChanged: (Boolean) -
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
             .fillMaxWidth()
-            .background(Color.LightGray),
+            .background(MaterialTheme.colorScheme.surfaceVariant),
         horizontalArrangement = Arrangement.SpaceAround
     ) {
         Text(
             text = "Headlights", fontSize = 20.sp, color = Color.Gray,
-            fontWeight = FontWeight.Medium
+            fontFamily = Monnestraut,
+            fontWeight = FontWeight.Normal,
         )
         Spacer(modifier = Modifier.width(8.dp))
         Switch(
@@ -181,9 +174,9 @@ private fun HeadLight(switchState: Boolean = false, onSwitchChanged: (Boolean) -
 @Composable
 private fun HelmetImage() {
     Image(
-        painter = painterResource(id = R.drawable.helmet_image), // Replace with your image resource
+        painter = painterResource(id = R.drawable.helmet_man), // Replace with your image resource
         contentDescription = "Helmet",
-        modifier = Modifier.size(140.dp),
+        modifier = Modifier.size(150.dp),
         contentScale = ContentScale.Fit
     )
 }
@@ -194,13 +187,15 @@ private fun HeaderTitle() {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .background(Color.LightGray),
+            .background(MaterialTheme.colorScheme.secondaryContainer),
         horizontalArrangement = Arrangement.Center
     ) {
         Text(
             text = "HelmetIQ",
             fontSize = 24.sp,
-            color = Color.Gray,
+            color = MaterialTheme.colorScheme.onSecondaryContainer,
+            fontFamily = Monnestraut,
+            fontWeight = FontWeight.Medium,
             modifier = Modifier.padding(vertical = 10.dp)
 
         )

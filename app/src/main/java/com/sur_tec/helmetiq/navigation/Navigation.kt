@@ -40,7 +40,7 @@ fun HelmetIQNavigation() {
                 Mainscreen(navController = navController, modifier = Modifier.padding(padding))
             }
             composable(Screens.CONTACTSSCREEN.name) {
-                Contacts(navController = navController)
+                Contacts(navController = navController, modifier = Modifier.padding(padding))
             }
         }
     }
