@@ -189,7 +189,7 @@ private fun HeadLight(switchState: Boolean = false, onSwitchChanged: (Boolean) -
 @Preview
 private fun HelmetImage() {
     Image(
-        painter = painterResource(id = R.drawable.helmet), // Replace with your image resource
+        painter = painterResource(id = R.drawable.helmet_man_removebg), // Replace with your image resource
         contentDescription = "Helmet",
         modifier = Modifier.size(170.dp),
         contentScale = ContentScale.Crop
