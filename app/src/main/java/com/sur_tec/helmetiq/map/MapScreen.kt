@@ -28,15 +28,15 @@ import com.google.maps.android.compose.rememberCameraPositionState
 
 @OptIn(ExperimentalPermissionsApi::class, ExperimentalMaterial3Api::class)
 @Composable
-fun MapScreen(modifier: Modifier = Modifier, navController: NavController) {
+fun MapScreen(modifier: Modifier = Modifier,navController: NavController) {
 
     val context = LocalContext.current
-    val locationPermissionState =
-        rememberPermissionState(permission = Manifest.permission.ACCESS_FINE_LOCATION)
+    val locationPermissionState = rememberPermissionState(permission = Manifest.permission.ACCESS_FINE_LOCATION)
     val cameraPositionState = rememberCameraPositionState()
     val fusedLocationClient = LocationServices.getFusedLocationProviderClient(context)
     var userLocation by remember { mutableStateOf<LatLng?>(null) }
     val coroutineScope = rememberCoroutineScope()
+
 
 
     var locationPermissionGranted by remember { mutableStateOf(false) }
@@ -57,14 +57,14 @@ fun MapScreen(modifier: Modifier = Modifier, navController: NavController) {
 
 
 
-    if (locationPermissionGranted) {
+    if (locationPermissionGranted){
 
-        fusedLocationClient?.lastLocation?.addOnSuccessListener { location ->
+        fusedLocationClient?.lastLocation?.addOnSuccessListener {location ->
             location?.let {
-                userLocation = LatLng(it.latitude, it.longitude)
-                cameraPositionState.position = CameraPosition.fromLatLngZoom(userLocation!!, 15f)
+                userLocation = LatLng(it.latitude,it.longitude)
+                cameraPositionState.position = CameraPosition.fromLatLngZoom(userLocation!!,15f)
 
-            } ?: run {
+            }?: run {
                 Toast.makeText(context, "Unable to get location", Toast.LENGTH_SHORT).show()
             }
 
@@ -85,7 +85,7 @@ fun MapScreen(modifier: Modifier = Modifier, navController: NavController) {
         }
     ) {
 
-        if (locationPermissionState.status.isGranted) {
+        if (locationPermissionState.status.isGranted){
             GoogleMap(
                 modifier = modifier.fillMaxSize(),
                 cameraPositionState,
@@ -93,13 +93,16 @@ fun MapScreen(modifier: Modifier = Modifier, navController: NavController) {
                     Toast.makeText(context, "map loaded", Toast.LENGTH_SHORT).show()
                 }
             )
-        } else {
+        }else {
             Text(text = "Location permission required", modifier = Modifier.fillMaxSize())
 
         }
 
 
+
+
     }
+
 
 
 }
