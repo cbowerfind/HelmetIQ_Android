@@ -2,6 +2,7 @@ package com.sur_tec.helmetiq
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -38,6 +39,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import com.sur_tec.helmetiq.navigation.Screens
 import com.sur_tec.helmetiq.ui.theme.customColors
 
 @Composable
@@ -94,7 +96,10 @@ fun Mainscreen(navController: NavHostController, modifier: Modifier = Modifier) 
             modifier = Modifier
                 .fillMaxWidth()
                 .height(180.dp)
-                .background(MaterialTheme.colorScheme.onSurfaceVariant),
+                .background(MaterialTheme.colorScheme.onSurfaceVariant)
+                .clickable {
+                    navController.navigate(Screens.MAPSCREEN.name)
+                },
             contentAlignment = Alignment.Center
         ) {
             BasicText(
