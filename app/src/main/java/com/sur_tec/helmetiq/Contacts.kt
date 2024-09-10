@@ -159,8 +159,15 @@ fun NewContactAndSmsToggle(switchState: Boolean = false, onCheckChanged: (Boolea
                 onCheckedChange = {
                     onCheckChanged(it)
                 },
-                colors = SwitchDefaults.colors(checkedThumbColor = Color.Cyan),
-                modifier = Modifier.padding(end = 12.dp)
+                colors = SwitchDefaults.colors(
+                    checkedThumbColor = Color.Cyan, // Thumb color when switch is ON
+                    uncheckedThumbColor = Color.Gray, // Thumb color when switch is OFF
+                    checkedTrackColor = Color.DarkGray, // Track color when switch is ON
+                    uncheckedTrackColor = Color.LightGray, // Track color when switch is OFF
+
+                )
+                ,
+                modifier = Modifier.padding(end = 12.dp, start = 12.dp)
             )
         }
     }

@@ -240,8 +240,10 @@ private fun HeadLight(switchState: Boolean = false, onSwitchChanged: (Boolean) -
             checked = switchState,
             onCheckedChange = onSwitchChanged,
             colors = SwitchDefaults.colors(
-                checkedThumbColor = Color.Cyan,
-                uncheckedThumbColor = customColors.inversePrimary
+                checkedThumbColor = Color.Cyan, // Thumb color when switch is ON
+                uncheckedThumbColor = Color.Gray, // Thumb color when switch is OFF
+                checkedTrackColor = Color.DarkGray, // Track color when switch is ON
+                uncheckedTrackColor = Color.LightGray, // Track color when switch is OFF
             )
         )
     }
