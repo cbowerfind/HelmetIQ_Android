@@ -35,6 +35,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -63,7 +64,8 @@ import com.sur_tec.helmetiq.ui.theme.customColors
 fun Mainscreen(navController: NavHostController, modifier: Modifier = Modifier) {
 
     val context = LocalContext.current
-    val locationPermissionState = rememberPermissionState(permission = Manifest.permission.ACCESS_FINE_LOCATION)
+    val locationPermissionState =
+        rememberPermissionState(permission = Manifest.permission.ACCESS_FINE_LOCATION)
     val cameraPositionState = rememberCameraPositionState()
     val fusedLocationClient = LocationServices.getFusedLocationProviderClient(context)
     var userLocation by remember { mutableStateOf<LatLng?>(null) }
@@ -79,14 +81,14 @@ fun Mainscreen(navController: NavHostController, modifier: Modifier = Modifier) 
 
     }
 
-    if (locationPermissionGranted){
+    if (locationPermissionGranted) {
 
-        fusedLocationClient?.lastLocation?.addOnSuccessListener {location ->
+        fusedLocationClient?.lastLocation?.addOnSuccessListener { location ->
             location?.let {
-                userLocation = LatLng(it.latitude,it.longitude)
-                cameraPositionState.position = CameraPosition.fromLatLngZoom(userLocation!!,15f)
+                userLocation = LatLng(it.latitude, it.longitude)
+                cameraPositionState.position = CameraPosition.fromLatLngZoom(userLocation!!, 15f)
 
-            }?: run {
+            } ?: run {
                 Toast.makeText(context, "Unable to get location", Toast.LENGTH_SHORT).show()
             }
 
@@ -155,7 +157,7 @@ fun Mainscreen(navController: NavHostController, modifier: Modifier = Modifier) 
                     navController.navigate(Screens.MAPSCREEN.name)
                 },
         ) {
-            if (locationPermissionState.status.isGranted){
+            if (locationPermissionState.status.isGranted) {
                 GoogleMap(
                     modifier = Modifier.fillMaxSize(),
                     cameraPositionState,
@@ -163,7 +165,7 @@ fun Mainscreen(navController: NavHostController, modifier: Modifier = Modifier) 
                         Toast.makeText(context, "map loaded", Toast.LENGTH_SHORT).show()
                     }
                 )
-            }else {
+            } else {
                 Text(text = "Location permission required", modifier = Modifier.fillMaxSize())
 
             }
@@ -177,15 +179,14 @@ fun Mainscreen(navController: NavHostController, modifier: Modifier = Modifier) 
                 modifier = Modifier
                     .padding(horizontal = 12.dp)
                     .fillMaxWidth()
-                    .shadow(elevation = 4.dp)
                     .clip(RoundedCornerShape(8.dp))
                     .background(
-                        customColors.surface
+                        MaterialTheme.colorScheme.primary
                     )
             ) {
                 Text(
                     text = "Total Distance Traveled: 10 Miles",
-                    color = customColors.onSurface,
+                    color =  MaterialTheme.colorScheme.onPrimary,
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Medium,
                     modifier = Modifier.padding(16.dp)
@@ -197,15 +198,14 @@ fun Mainscreen(navController: NavHostController, modifier: Modifier = Modifier) 
                 modifier = Modifier
                     .padding(horizontal = 12.dp)
                     .fillMaxWidth()
-                    .shadow(elevation = 4.dp)
                     .clip(RoundedCornerShape(8.dp))
                     .background(
-                        customColors.surface
+                        MaterialTheme.colorScheme.primary
                     )
             ) {
                 Text(
                     text = "Ride Time: 58 Minutes",
-                    color = customColors.onSurface,
+                    color = MaterialTheme.colorScheme.onPrimary,
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Medium,
                     modifier = Modifier.padding(16.dp)
@@ -226,23 +226,21 @@ private fun HeadLight(switchState: Boolean = false, onSwitchChanged: (Boolean) -
             .padding(12.dp)
             .fillMaxWidth()
             .clip(RoundedCornerShape(8.dp))
-            .background(MaterialTheme.colorScheme.surface)
-            .shadow(elevation = 4.dp)
+            .background(MaterialTheme.colorScheme.primary)
             .padding(12.dp),
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         Text(
             text = "Headlights",
             fontSize = 18.sp,
-            color = MaterialTheme.colorScheme.onSurface,
-            fontFamily = FontFamily.SansSerif,
+            color = MaterialTheme.colorScheme.onPrimary,
             fontWeight = FontWeight.Medium
         )
         Switch(
             checked = switchState,
             onCheckedChange = onSwitchChanged,
             colors = SwitchDefaults.colors(
-                checkedThumbColor = customColors.secondary,
+                checkedThumbColor = Color.Cyan,
                 uncheckedThumbColor = customColors.inversePrimary
             )
         )
