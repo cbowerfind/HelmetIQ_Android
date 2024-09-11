@@ -31,7 +31,7 @@ import com.sur_tec.helmetiq.navigation.Screens
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun HelmetIQNavigation() {
+fun HelmetIQNavigation(onBluetoothClick:()->Unit) {
     val navController = rememberNavController()
     val bottomBarState = rememberSaveable { (mutableStateOf(true)) }
 
@@ -56,7 +56,7 @@ fun HelmetIQNavigation() {
     ) { padding ->
         NavHost(navController = navController, startDestination = Screens.MAINSCREEN.name) {
             composable(Screens.MAINSCREEN.name) {
-                Mainscreen(navController = navController, modifier = Modifier.padding(padding))
+                Mainscreen(navController = navController, modifier = Modifier.padding(padding),onBluetoothClick)
             }
             composable(Screens.CONTACTSSCREEN.name) {
                 Contacts(navController = navController, modifier = Modifier.padding(padding))
@@ -82,7 +82,7 @@ fun BottomNavigationBar(navController: NavHostController,bottomBarState : Boolea
             route = Screens.CONTACTSSCREEN.name,
             selectedIcon = Icons.Filled.Call,
             unSelectedIcon = Icons.Outlined.Call,
-            label = "Contact"
+            label = "Emergency Contacts"
         )
     )
 
