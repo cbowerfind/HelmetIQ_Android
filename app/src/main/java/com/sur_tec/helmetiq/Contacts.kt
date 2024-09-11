@@ -81,7 +81,7 @@ fun Header() {
             text = "Emergency Contacts",
             fontSize = 24.sp,
             fontFamily = Monnestraut,
-            color = customColors.primary,
+            color = MaterialTheme.colorScheme.primary,
             fontWeight = FontWeight.ExtraBold,
             fontStyle = FontStyle.Italic,
             modifier = Modifier.padding(vertical = 10.dp, horizontal = 12.dp)

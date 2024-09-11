@@ -275,7 +275,7 @@ private fun HeaderTitle() {
             fontStyle = FontStyle.Italic,
             fontWeight = FontWeight.Black, // Use heavy, bold font for modern design
             fontFamily = FontFamily.SansSerif, // Switch to modern sans-serif fonts
-            color = customColors.primary,
+            color = MaterialTheme.colorScheme.primary,
             modifier = Modifier.padding(top = 16.dp, start = 12.dp)
 
         )
